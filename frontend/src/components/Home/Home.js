@@ -5,10 +5,14 @@ const Home = () => {
   
   return (
     <div>
-      <Helmet>
-        <title>Collabs | Home</title>
-        <meta name="description" content="Your Privacy Friendly, Open Source. Alternative to EverNote." />
-      </Helmet>
+        <Helmet>
+            <title>Collabs | Home</title>
+            <meta name="description" content="Your Privacy Friendly, Open Source. Alternative to EverNote." />
+        </Helmet>
+
+        <nav>
+            
+        </nav>
     </div>
   )
 }
