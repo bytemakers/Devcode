@@ -10,8 +10,8 @@ const Home = () => {
   return (
     <div className='bg-black h-screen w-screen'>
         <Helmet>
-            <title>Collabs | Home</title>
-            <meta name="description" content="Your Privacy Friendly, Open Source. Alternative to EverNote." />
+            <title>DevCode | Home</title>
+            <meta name="description" content="Grow, Share And Connect With Developers." />
         </Helmet>
 
         <Navbar />
