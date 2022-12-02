@@ -1,5 +1,9 @@
 # DEVCODE
 
+![bannerhackathon](images/bannerhackathon.png)
+
+## Grow, Share And Connect With Developers
+
 ![logo](images/devcode.png)
 
-Grow, Share And Connect With Developers
+## Features
