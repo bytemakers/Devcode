@@ -2,6 +2,7 @@ import '../../App.css';
 import { Helmet } from "react-helmet";
 import Navbar from '../Navbar/Navbar';
 import Hero from '../Hero/Hero';
+import Footer from '../Footer/Footer';
 
 const Home = () => {
   
@@ -15,6 +16,8 @@ const Home = () => {
         <Navbar />
 
         <Hero />
+
+        <Footer />
     </div>
   )
 }
