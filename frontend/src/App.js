@@ -6,10 +6,13 @@ import Dashboard from './components/Dashboard/Dashboard';
 import Projects from './components/Projects/Projects';
 import Register from './components/Register/Register';
 import NewProj from './components/NewProj/NewProj';
+import { useEffect } from 'react';
 
 
 function App() {
-
+    useEffect(() => {
+      document.body.style.backgroundColor = "black";
+    }, []);
   return (
     <Router>
       <Routes>
