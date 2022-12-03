@@ -14,7 +14,7 @@ const Login = () => {
 
     useEffect(() => {
         if (localStorage.getItem('auth-token')) {
-            navigate('/home');
+            navigate('/projects');
         }
     }, []);
 
@@ -39,7 +39,7 @@ const Login = () => {
         else if (json.authtoken) {
             localStorage.setItem('auth-token', json.authtoken);
             // toast.success(json.authtoken);
-            navigate('/home');
+            navigate('/projects');
         }
         else {
             toast.error('Internal Server Error');
