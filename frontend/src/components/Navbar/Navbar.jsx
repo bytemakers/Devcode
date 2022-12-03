@@ -1,11 +1,25 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Fragment } from 'react'
 import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import logo from '../../assets/devcode.png'
+import { useNavigate, Link } from 'react-router-dom';
 
 
 const Navbar = () => {
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+    const navigate = useNavigate();
+
+    useEffect(() => {
+      if (localStorage.getItem('auth-token')) {
+        setIsLoggedIn(true);
+      }
+      else {
+        setIsLoggedIn(false);
+      }
+    }, []);
+    
     const navigation = [
         { name: 'Dashboard', href: '#', current: true },
         { name: 'Features', href: '#', current: false },
@@ -15,6 +29,11 @@ const Navbar = () => {
       
       function classNames(...classes) {
         return classes.filter(Boolean).join(' ')
+      }
+
+      const signout = () => {
+        localStorage.removeItem('auth-token');
+        navigate('/');
       }
       
   return (
@@ -67,6 +86,8 @@ const Navbar = () => {
                 </div>
               </div>
               <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
+                {isLoggedIn?
+                <>
                 <button
                   type="button"
                   className="rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
@@ -119,17 +140,23 @@ const Navbar = () => {
                       </Menu.Item>
                       <Menu.Item>
                         {({ active }) => (
-                          <a
-                            href="#"
-                            className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
+                          <button
+                            onClick={signout}
+                            className={classNames(active ? 'bg-gray-100' : '', 'px-4 flex w-[100%] py-2 text-sm text-gray-700')}
                           >
                             Sign out
-                          </a>
+                          </button>
                         )}
                       </Menu.Item>
                     </Menu.Items>
                   </Transition>
-                </Menu>
+                </Menu> </>
+                :
+                <>
+                  <Link to={'/login'} type="button" class="text-white bg-gradient-to-r from-purple-500 via-purple-600 to-purple-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-purple-300 dark:focus:ring-purple-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2">Login</Link>
+                  <Link to={'/register'} type="button" class="text-white bg-gradient-to-r from-purple-500 via-purple-600 to-purple-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-purple-300 dark:focus:ring-purple-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2">Signup</Link>
+                </>
+                }
               </div>
             </div>
           </div>
