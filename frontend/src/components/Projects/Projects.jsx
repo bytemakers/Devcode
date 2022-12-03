@@ -1,7 +1,15 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import { useNavigate } from 'react-router-dom';
 import Navbar from '../Navbar/Navbar';
 
 const Projects = () => {
+    const navigate = useNavigate();
+    useEffect(() => {
+        if (!localStorage.getItem('auth-token')) {
+            navigate('/');
+        }
+    }, []);
+    
     return (
         <div className='bg-black'>
             <section className="bg-black dark:bg-black">
