@@ -6,11 +6,11 @@ var bcrypt = require('bcryptjs');
 var jwt = require('jsonwebtoken');
 const cloudinary = require('../utils/cloudinary');
 const ProductSchema = require('../models/Project');
+const fetchuser = require('../middleware/fetchuser');
 // const fetchuser = require('../middleware/fetchuser');
 const dotenv = require('dotenv').config();
 
 const JWT_SECRET = process.env.JWT_SECRET;
-
 
 
 
@@ -135,16 +135,26 @@ router.post('/uploadproject', fetchuser, async (req, res) => {
     try {
         const theUser = await UserSchema.findById(req.user.id);
 
-        const result = await cloudinary.uploader.upload();
-        const { name, languages, repoName, repoLink, level, image } = req.body;
+        const { name, description, langArr, repoName, repoLink, level, image } = req.body;
+
+        const result = await cloudinary.uploader.upload(image, {
+            folder: "products",
+            // width: 300,
+            // crop: "scale"
+        });
+        console.log(name);
 
         const product = await ProductSchema.create({
             userId: theUser.id,
             name,
-            languages,
+            description,
+            languages: langArr,
             repoName,
             repoLink,
-            image,
+            image: {
+                public_id: result.public_id,
+                url: result.secure_url
+            },
             level
         });
         res.status(201).json({ success: true, product });
