@@ -46,7 +46,7 @@ const Home = () => {
 
         <Hero />
 
-          <div className="bg-black py-24 sm:py-32 lg:py-40">
+          <div className="bg-black pb-24 sm:pb-32 lg:pb-40">
           <div className="mx-auto max-w-7xl px-6 lg:px-8">
             <div className="sm:text-center">
               <h2 className="text-lg font-semibold leading-8 text-purple-600">Features</h2>
