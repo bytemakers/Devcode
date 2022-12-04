@@ -46,7 +46,7 @@ const Projects = () => {
                             {project.level === 2 && <span class="absolute font-extrabold bg-yellow-100 text-yellow-800 text-lg mr-2 px-2.5 py-0.5 rounded dark:bg-yellow-200 dark:text-yellow-900">Intermediate</span>}
                             {project.level === 3 && <span class="absolute font-extrabold bg-purple-100 text-purple-800 text-lg mr-2 px-2.5 py-0.5 rounded dark:bg-purple-200 dark:text-purple-900">Advance</span>}
                             {project.level === 4 && <span class="absolute font-extrabold bg-red-100 text-red-800 text-lg mr-2 px-2.5 py-0.5 rounded dark:bg-red-200 dark:text-red-900">Expert</span>}
-                            <img className="w-full" src="https://wallpaperbat.com/img/38515-train-track-wallpaper.jpg" alt="Mountain" />
+                            <img className="w-full" src={project.image.url} alt="Mountain" />
                             <div className="px-6 py-4">
                                 <div className="text-white font-bold text-xl mb-2">{project.name}</div>
                                 <p className="text-gray-300 text-base">
