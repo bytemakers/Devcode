@@ -179,7 +179,7 @@ router.post('/uploadproject', fetchuser, async (req, res) => {
 
 
 
-// Route 4: Get All Projects: POST: http://localhost:8181/api/auth/getprojects. Login Required
+// Route 4: Get All Projects: GET: http://localhost:8181/api/auth/getprojects. Login Required
 router.get('/getprojects', fetchuser, async (req, res) => {
 
     const errors = validationResult(req);
@@ -190,6 +190,39 @@ router.get('/getprojects', fetchuser, async (req, res) => {
 
     try {
         const allProjects = await ProjectSchema.find({ userId: { $ne: req.user.id } });
+        // console.log(req.user.id);
+        res.json(allProjects);
+
+
+    } catch (error) {
+        console.error(error);
+        return res.status(500).send("Internal Server Error");
+    }
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Route 5: Get My Projects: GET: http://localhost:8181/api/auth/getmyprojects. Login Required
+router.get('/getmyprojects', fetchuser, async (req, res) => {
+
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
+
+
+    try {
+        const allProjects = await ProjectSchema.find({ userId: req.user.id });
         // console.log(req.user.id);
         res.json(allProjects);
 
