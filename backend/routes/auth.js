@@ -5,8 +5,9 @@ const { body, validationResult } = require('express-validator');
 var bcrypt = require('bcryptjs');
 var jwt = require('jsonwebtoken');
 const cloudinary = require('../utils/cloudinary');
-const ProductSchema = require('../models/Project');
+const ProjectSchema = require('../models/Project');
 const fetchuser = require('../middleware/fetchuser');
+// const { default: Projects } = require('../../frontend/src/components/Projects/Projects');
 // const fetchuser = require('../middleware/fetchuser');
 const dotenv = require('dotenv').config();
 
@@ -144,7 +145,7 @@ router.post('/uploadproject', fetchuser, async (req, res) => {
         });
         console.log(name);
 
-        const product = await ProductSchema.create({
+        const product = await ProjectSchema.create({
             userId: theUser.id,
             name,
             description,
@@ -158,6 +159,39 @@ router.post('/uploadproject', fetchuser, async (req, res) => {
             level
         });
         res.status(201).json({ success: true, product });
+
+
+    } catch (error) {
+        console.error(error);
+        return res.status(500).send("Internal Server Error");
+    }
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Route 4: Get All Projects: POST: http://localhost:8181/api/auth/getprojects. Login Required
+router.get('/getprojects', fetchuser, async (req, res) => {
+
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
+
+
+    try {
+        const allProjects = await ProjectSchema.find({ userId: { $ne: req.user.id } });
+        // console.log(req.user.id);
+        res.json(allProjects);
 
 
     } catch (error) {
