@@ -23,7 +23,7 @@ const Navbar = () => {
     const navigation = [
         { name: 'Home', href: '/', current: true },
         { name: 'Features', href: '/#features', current: false },
-        { name: 'Projects', href: '#', current: false },
+        { name: 'Projects', href: '/projects', current: false },
         { name: 'Github', href: 'https://github.com/devarshishimpi/devcode', current: false },
       ]
       
@@ -88,13 +88,13 @@ const Navbar = () => {
               <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
                 {isLoggedIn?
                 <>
-                <button
+                {/*<button
                   type="button"
                   className="rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
                 >
                   <span className="sr-only">View notifications</span>
                   <BellIcon className="h-6 w-6" aria-hidden="true" />
-                </button>
+                </button>*/}
 
                 {/* Profile dropdown */}
                 <Menu as="div" className="relative ml-3">
@@ -121,20 +121,20 @@ const Navbar = () => {
                       <Menu.Item>
                         {({ active }) => (
                           <a
-                            href="#"
+                            href="/dashboard"
                             className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
                           >
-                            Your Profile
+                            Dashboard
                           </a>
                         )}
                       </Menu.Item>
                       <Menu.Item>
                         {({ active }) => (
                           <a
-                            href="#"
+                            href="/newproject"
                             className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
                           >
-                            Settings
+                            New Project
                           </a>
                         )}
                       </Menu.Item>
