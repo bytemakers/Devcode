@@ -235,4 +235,74 @@ router.get('/getmyprojects', fetchuser, async (req, res) => {
 
 
 
+
+
+
+
+
+
+
+
+
+
+// Route 6: Increase Clicks on project: POST: http://localhost:8181/api/auth/increaseclick. Login Required
+router.post('/increaseclick', fetchuser, async (req, res) => {
+
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
+
+
+    try {
+        const proj = await ProjectSchema.findById(req.body.projectId);
+        const currentCount = proj.click;
+        const theProject = await ProjectSchema.findByIdAndUpdate(req.body.projectId, { click: currentCount+1 });
+
+        res.json({ success: "Success!" });
+
+    } catch (error) {
+        console.error(error);
+        return res.status(500).send("Internal Server Error");
+    }
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Route 7: Count clicks on projects: GET: http://localhost:8181/api/auth/countclicks. Login Required
+router.get('/countclicks', fetchuser, async (req, res) => {
+
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
+
+
+    try {
+        const allProjects = await ProjectSchema.find({ userId: req.user.id });
+        let count = 0;
+        allProjects.forEach(project => {
+            count += project.click;
+        });
+
+        res.json({ clicks: count });
+
+    } catch (error) {
+        console.error(error);
+        return res.status(500).send("Internal Server Error");
+    }
+});
+
+
+
 module.exports = router;
