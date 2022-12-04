@@ -1,6 +1,20 @@
+import { useState } from 'react';
 import './hero.css';
+import { useNavigate } from 'react-router-dom';
 
 const Hero = () => {
+  const [url, setUrl] = useState("");
+
+  const navigate = useNavigate();
+  
+  const addProject = async () => {
+    if (localStorage.getItem('auth-token')) {
+      navigate(`/newproject?redirect=${url}`);
+    }
+    else {
+      navigate(`/login?redirect=${url}`);
+    }
+  }
   return (
     <section className="bg-black mt-20">
       <div className="py-8 px-4 mx-auto max-w-screen-xl text-center lg:py-16 lg:px-12">
@@ -13,15 +27,15 @@ const Hero = () => {
           <p className="mb-8 text-lg font-normal lg:text-xl sm:px-16 xl:px-48 text-gray-400">A collaborative open source environment for developers to share their projects and contribute to many more.</p>
           <div className="flex flex-col mb-10 lg:mb-16 space-y-4 sm:flex-row sm:justify-center sm:space-y-0 sm:space-x-4">
 
-            <form className="flex rounded-md">
+            <form onSubmit={addProject} className="flex rounded-md">
               <div className="gradient-border flex rounded-md">
                 <span className="inline-flex font-extrabold items-center pl-5 text-[15px] rounded-l-md border-r-0 bg-gray-600 text-white border-gray-600">
                   github.com/
                 </span>
-                <input type="text" id="website-admin" className="rounded-none border block flex-1 min-w-0 w-full text-sm  bg-gray-600 border-gray-600 placeholder-gray-400 text-white outline-none" placeholder="your_project" />
+                <input value={url} onChange={(e) => setUrl(e.target.value)} type="text" id="website-admin" className="rounded-none border block flex-1 min-w-0 w-full text-sm  bg-gray-600 border-gray-600 placeholder-gray-400 text-white outline-none" placeholder="your_project" />
               </div>
               
-              <button type="button" className="text-white z-40 bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl font-medium rounded-r-lg text-sm px-7 py-[14px] text-center">Add Project</button>
+              <button type="submit" className="text-white z-40 bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl font-medium rounded-r-lg text-sm px-7 py-[14px] text-center">Add Project</button>
             </form>
 
           </div>

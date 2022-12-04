@@ -4,12 +4,16 @@ import Footer from '../Footer/Footer';
 import Navbar from '../Navbar/Navbar';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { useNavigate } from 'react-router-dom';
+import { redirect, useNavigate } from 'react-router-dom';
 import { Helmet } from "react-helmet";
+import {useLocation} from "react-router-dom";
 
 const Login = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    
+    const search = useLocation().search;
+    const redirectURI = new URLSearchParams(search).get('redirect');
 
     const navigate = useNavigate();
 
@@ -40,7 +44,12 @@ const Login = () => {
         else if (json.authtoken) {
             localStorage.setItem('auth-token', json.authtoken);
             // toast.success(json.authtoken);
-            navigate('/projects');
+            if (!redirectURI) {
+                navigate('/projects');
+            }
+            else {
+                navigate(`/newproject?redirect=${redirectURI}`);
+            }
         }
         else {
             toast.error('Internal Server Error');

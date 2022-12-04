@@ -1,13 +1,17 @@
 import { Suspense, useEffect, useState } from 'react';
-import { json, useNavigate } from 'react-router-dom';
+import { json, Link, useNavigate } from 'react-router-dom';
 import Navbar from '../Navbar/Navbar';
 import { Helmet } from "react-helmet";
 import './newproject.css';
 import './newproject.css';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import {useLocation} from "react-router-dom";
 
 const NewProj = () => {
+  const search = useLocation().search;
+  const redirectURI = new URLSearchParams(search).get('redirect');
+
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [language1, setLanguage1] = useState(false);
@@ -21,7 +25,7 @@ const NewProj = () => {
   const [language9, setLanguage9] = useState(false);
   const [language10, setLanguage10] = useState(false);
   const [repoName, setRepoName] = useState("DevCode");
-  const [repoLink, setRepoLink] = useState("https://github.com/devarshishimpi/devcode");
+  const [repoLink, setRepoLink] = useState(`https://github.com/${redirectURI}`);
   const [level, setLevel] = useState(null);
   const [image, setImage] = useState(null);
 
@@ -147,7 +151,9 @@ const NewProj = () => {
               <title>DevCode | New Project</title>
               <meta name="description" content="Add New Project Submission to Devcode Here" />
           </Helmet>
-            <div className="nav">
+            {redirectURI ?
+              <>
+              <div className="nav">
                 <Navbar />
             </div>
             <div className="p-12 max-w-7xl m-auto">
@@ -246,6 +252,10 @@ const NewProj = () => {
               </div>
             </div>
             <ToastContainer toastStyle={{ backgroundColor: "#202d40", color: 'white' }} />
+            </>
+            :
+            <p className='text-white p-4'>Some Error Occurred. Return to the <Link to={'/projects'}><a className='font-bold underline'>Project page</a></Link></p>
+            }
           </div>
     )
   }
