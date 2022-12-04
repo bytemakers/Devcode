@@ -19,7 +19,6 @@ const Projects = () => {
             }
         });
         const json = await response.json();
-        // console.log(json);
         setProjectList(json);
     }
 
@@ -31,6 +30,27 @@ const Projects = () => {
             getProjects();
         }
     }, []);
+
+    const collaborateClick = async (id, link) => {
+        const authtoken = localStorage.getItem('auth-token');
+        const response = await fetch('http://localhost:8181/api/auth/increaseclick', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'auth-token': authtoken
+            },
+            body: JSON.stringify({ projectId: id })
+        });
+        const json = await response.json();
+        // console.log(json);
+        if (json.success) {
+            // Simulate a mouse click:
+            window.location.href = link;
+
+            // Simulate an HTTP redirect:
+            window.location.replace(link);
+        }
+    }
     
     return (
         <div className='bg-black'>
@@ -67,7 +87,7 @@ const Projects = () => {
                                 {/* <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-black mr-2 mb-2">#travel</span>
                                 <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-black mr-2 mb-2">#winter</span> */}
                             </div>
-                            <a href={project.repoLink} target="_blank" className='bg-purple-500 text-white bottom-0 p-4 flex w-full justify-center items-center absolute'>Collaborate</a>
+                            <button onClick={() => collaborateClick(project._id, project.repoLink)} href={project.repoLink} target="_blank" className='bg-purple-500 text-white bottom-0 p-4 flex w-full justify-center items-center absolute'>Collaborate</button>
                         </div>
                     );
                 })}

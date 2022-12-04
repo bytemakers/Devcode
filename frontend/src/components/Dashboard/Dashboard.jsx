@@ -5,6 +5,8 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const Dashboard = () => {
+
+    const [click, setClick] = useState(0);
     const [projectsList, setProjectsList] = useState([]);
 
     const navigate = useNavigate();
@@ -24,12 +26,27 @@ const Dashboard = () => {
         console.log(json);
         setProjectsList(json);
     }
+
+    const countClicks = async () => {
+        const authtoken = localStorage.getItem('auth-token');
+        const response = await fetch('http://localhost:8181/api/auth/countclicks', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'auth-token': authtoken
+            }
+        });
+        const json = await response.json();
+        console.log(json);
+        setClick(json.clicks);
+    }
     
     useEffect(() => {
         if (!localStorage.getItem('auth-token')) {
             navigate('/login');
         }
         getMyProjects();
+        countClicks();
     }, []);
     
     return (
@@ -74,7 +91,7 @@ const Dashboard = () => {
                     <div className="flex max-h-40">
                         <a href="#" class="ml-10 block max-w-sm p-6 border rounded-lg shadow-md bg-gray-800 border-gray-700 hover:bg-gray-700">      
                             <p class="font-normal text-gray-400">Number Of Clicks</p>
-                            <h5 class="mb-2 text-2xl font-bold tracking-tight text-white">69</h5>
+                            <h5 class="mb-2 text-2xl font-bold tracking-tight text-white">{click}</h5>
                         </a>
                     </div>
                 </div>
