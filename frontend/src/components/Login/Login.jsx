@@ -5,6 +5,7 @@ import Navbar from '../Navbar/Navbar';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from 'react-router-dom';
+import { Helmet } from "react-helmet";
 
 const Login = () => {
     const [email, setEmail] = useState("");
@@ -48,6 +49,10 @@ const Login = () => {
     }
   return (
     <>
+        <Helmet>
+            <title>DevCode | Login</title>
+            <meta name="description" content="Login to your Devcode account here." />
+        </Helmet>
         <section className="bg-black">
             <div className="nav">
                 <Navbar />
@@ -64,11 +69,11 @@ const Login = () => {
                         </h1>
                         <form className="space-y-4 md:space-y-6" onSubmit={login}>
                             <div>
-                                <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-900">Your email</label>
+                                <label htmlFor="email" className="block mb-2 text-sm font-medium text-white">Your email</label>
                                 <input value={email} onChange={(e) => setEmail(e.target.value)} type="email" name="email" id="email" className=" border sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500" placeholder="name@company.com" required="" />
                             </div>
                             <div>
-                                <label htmlFor="password" className="block mb-2 text-sm font-medium text-gray-900">Password</label>
+                                <label htmlFor="password" className="block mb-2 text-sm font-medium text-white">Password</label>
                                 <input value={password} onChange={(e) => setPassword(e.target.value)} type="password" name="password" id="password" placeholder="••••••••" className="border sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500" required="" />
                             </div>
                             <div className="flex items-center justify-between">
@@ -84,7 +89,7 @@ const Login = () => {
                             </div>
                             <button type="submit" className="bg-grey-200 w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center bg-primary-600 hover:bg-primary-700 focus:ring-primary-800">Sign in</button>
                             <p className="text-sm font-light text-gray-400">
-                                Don't have an account yet? <a href="#" className="font-medium text-primary-600 hover:underline text-primary-500">Sign up</a>
+                                Don't have an account yet? <a href="/register" className="font-medium text-primary-600 hover:underline text-primary-500">Sign up</a>
                             </p>
                         </form>
                     </div>
