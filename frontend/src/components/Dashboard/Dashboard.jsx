@@ -13,8 +13,8 @@ const Dashboard = () => {
             <div className="nav">
                 <Navbar />
             </div>
-            <label className="text-4xl text-white">Add New Project</label>
-            <div className="flex flex-row">
+            <label className="text-4xl text-white ml-10">Add New Project</label>
+            <div className="flex flex-row ml-10">
                 <div className="mt-10">
                     <a href="#" class="flex flex-col items-center border rounded-lg shadow-md md:flex-row md:max-w-xl border-gray-700 bg-gray-800 hover:bg-gray-700">
                         <img class="object-cover w-full rounded-t-lg h-96 md:h-auto md:w-48 md:rounded-none md:rounded-l-lg" src="" alt="" />
