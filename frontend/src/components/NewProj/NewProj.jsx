@@ -25,8 +25,8 @@ const NewProj = () => {
   const [language9, setLanguage9] = useState(false);
   const [language10, setLanguage10] = useState(false);
   const [repoName, setRepoName] = useState("DevCode");
-  const [repoLink, setRepoLink] = useState(`https://github.com/${redirectURI}`);
-  const [level, setLevel] = useState(null);
+  const [repoLink, setRepoLink] = useState(redirectURI?`https://github.com/${redirectURI}`:'');
+  const [level, setLevel] = useState(1);
   const [image, setImage] = useState(null);
 
   const navigate = useNavigate();
@@ -86,9 +86,6 @@ const NewProj = () => {
     else if (langArr.length === 0) {
       toast.error('Please select a valid language tag');
     }
-    else if (level.trim() === "") {
-      toast.error('Please select level of the project');
-    }
     else if (image === null) {
       toast.error("Please upload a valid image");
     }
@@ -118,7 +115,7 @@ const NewProj = () => {
         setLanguage10(false);
         setRepoName("");
         setRepoLink("");
-        setLevel("");
+        setLevel(1);
         setImage(null);
 
         toast.success('Success! Your project has been submitted successfully');
@@ -151,8 +148,6 @@ const NewProj = () => {
               <title>DevCode | New Project</title>
               <meta name="description" content="Add New Project Submission to Devcode Here" />
           </Helmet>
-            {redirectURI ?
-              <>
               <div className="nav">
                 <Navbar />
             </div>
@@ -166,6 +161,10 @@ const NewProj = () => {
                 <div class="mb-6">
                     <label htmlFor="large-input" class="block mb-2 text-xl font-medium text-white"> Project Description</label>
                     <input value={description} onChange={(e) => setDescription(e.target.value)} type="text" id="large-input" class="block p-4 w-full bg-gray-700 rounded-lg sm:text-md placeholder-gray-400 text-white outline-none" placeholder="Project Description"/>
+                </div>
+                <div class="mt-3 mb-6">
+                  <label htmlFor="base-input" class="block mb-2 text-xl font-medium text-white">GitHub Repository Link</label>
+                  <input value={repoLink} onChange={(e) => setRepoLink(e.target.value)} type="text" id="base-input" class="border text-sm rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 outline-none text-white" placeholder="https://github.com/username/repository-name"></input>
                 </div>
               </div>
 
@@ -252,10 +251,6 @@ const NewProj = () => {
               </div>
             </div>
             <ToastContainer toastStyle={{ backgroundColor: "#202d40", color: 'white' }} />
-            </>
-            :
-            <p className='text-white p-4'>Some Error Occurred. Return to the <Link to={'/projects'}><a className='font-bold underline'>Project page</a></Link></p>
-            }
           </div>
     )
   }
