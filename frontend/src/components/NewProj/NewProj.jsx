@@ -2,7 +2,10 @@ import { Suspense, useEffect, useState } from 'react';
 import { json, useNavigate } from 'react-router-dom';
 import Navbar from '../Navbar/Navbar';
 import { Helmet } from "react-helmet";
-import './newproject.css'
+import './newproject.css';
+import './newproject.css';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const NewProj = () => {
   const [name, setName] = useState("");
@@ -20,7 +23,7 @@ const NewProj = () => {
   const [repoName, setRepoName] = useState("DevCode");
   const [repoLink, setRepoLink] = useState("https://github.com/devarshishimpi/devcode");
   const [level, setLevel] = useState(null);
-  const [image, setImage] = useState();
+  const [image, setImage] = useState(null);
 
   const navigate = useNavigate();
 
@@ -32,6 +35,7 @@ const NewProj = () => {
 
   const formSubmit = async (e) => {
     e.preventDefault();
+
     const langArr = [];
     if (language1) {
       langArr.push("Javscript");
@@ -65,17 +69,62 @@ const NewProj = () => {
     }
 
 
-    const authtoken = localStorage.getItem('auth-token');
-    const response = await fetch('http://localhost:8181/api/auth/uploadproject', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'auth-token': authtoken
-      },
-      body: JSON.stringify({ name, description, langArr, repoName, repoLink, level, image })
-    });
-    const json = await response.json();
-    console.log(json);
+
+    if (name.trim() === "") {
+      toast.error('Please enter a valid project name');
+    }
+    else if (description.trim() === "") {
+      toast.error('Please enter a valid description');
+    }
+    // else if (!(language1 || language2 || language3 || language4 || language5 || language6 || language7 || language8 || language9 || language10)) {
+    //   toast.error('Please select a valid language tag');
+    // }
+    else if (langArr.length === 0) {
+      toast.error('Please select a valid language tag');
+    }
+    else if (level.trim() === "") {
+      toast.error('Please select level of the project');
+    }
+    else if (image === null) {
+      toast.error("Please upload a valid image");
+    }
+    else {
+      const authtoken = localStorage.getItem('auth-token');
+      const response = await fetch('http://localhost:8181/api/auth/uploadproject', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'auth-token': authtoken
+        },
+        body: JSON.stringify({ name, description, langArr, repoName, repoLink, level, image })
+      });
+      const json = await response.json();
+      if (json.success) {
+        setName("");
+        setDescription("");
+        setLanguage1(false);
+        setLanguage2(false);
+        setLanguage3(false);
+        setLanguage4(false);
+        setLanguage5(false);
+        setLanguage6(false);
+        setLanguage7(false);
+        setLanguage8(false);
+        setLanguage9(false);
+        setLanguage10(false);
+        setRepoName("");
+        setRepoLink("");
+        setLevel("");
+        setImage(null);
+
+        toast.success('Success! Your project has been submitted successfully');
+
+        setTimeout(() => {
+          navigate('/projects')
+        }, 1500);
+      }
+      console.log(json);
+    }
   }
 
   const handleImage = (e) => {
@@ -104,7 +153,7 @@ const NewProj = () => {
             <div className="p-12 max-w-7xl m-auto">
               <label className="text-4xl text-white">Add New Project</label>
               <div className="flex flex-col p-4 bg-gray-900 my-4 rounded-2xl">
-                <div class="mt-12 mb-6">
+                <div class="mt-3 mb-6">
                   <label htmlFor="base-input" class="block mb-2 text-xl font-medium text-white">Project Name</label>
                   <input value={name} onChange={(e) => setName(e.target.value)} type="text" id="base-input" class="border text-sm rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 outline-none text-white" placeholder="Project Title"></input>
                 </div>
@@ -115,7 +164,7 @@ const NewProj = () => {
               </div>
 
               <div className="flex flex-col p-4 bg-gray-900 rounded-2xl">
-                <form onSubmit={formSubmit} className="space-y-5 flex flex-col">     
+                <form onSubmit={formSubmit} className="space-y-5 mt-4 flex flex-col">     
                   <label htmlFor="countries" className="block mb-2 text-xl font-medium text-white">Select project level</label>
                   <select onChange={(e) => setLevel(e.target.value)} id="countries" className="border text-sm rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white outline-none">
                     <option value={1}>Beginner</option>
@@ -187,7 +236,7 @@ const NewProj = () => {
                   <label className="block mb-[-20px] text-xl font-medium text-white" htmlFor="user_avatar">Upload Project Banner</label>
                   <input onChange={handleImage} className="text-gray-400 block w-full text-sm rounded-lg border cursor-pointertext-gray-400 focus:outline-none bg-gray-700 border-gray-600 placeholder-gray-400" aria-describedby="user_avatar_help" id="user_avatar" type="file" />
 
-                  <div className="mt-1 text-sm text-gray-300" id="user_avatar_help">A project banner showcases a image banner with some info about your project.</div>
+                  <div className="mt-1 text-sm text-gray-300" id="user_avatar_help">A project banner showcases a image banner with some info about your project. Use a ratio of 100x42 for best results</div>
 
 
 
@@ -196,6 +245,7 @@ const NewProj = () => {
                 </form>
               </div>
             </div>
+            <ToastContainer toastStyle={{ backgroundColor: "#202d40", color: 'white' }} />
           </div>
     )
   }
