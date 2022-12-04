@@ -1,0 +1,10 @@
+::file-selector-button {
+    background-color: #4b5563;
+    color: white;
+    outline: none;
+    border: none;
+    height: 43px;
+    padding: 0px 20px;
+    cursor: pointer;
+    margin-right: 15px;
+}

@@ -42,17 +42,25 @@ const Projects = () => {
                 {projectList.map((project) => {
                     return (
                         <div key={project._id} className="overflow-hidden shadow-lg bg-[#262626] p-0 rounded-xl">
+                            {project.level === 1 && <span class="absolute font-extrabold bg-green-100 text-green-800 text-lg mr-2 px-2.5 py-0.5 rounded dark:bg-green-200 dark:text-green-900">Beginner</span>}
+                            {project.level === 2 && <span class="absolute font-extrabold bg-yellow-100 text-yellow-800 text-lg mr-2 px-2.5 py-0.5 rounded dark:bg-yellow-200 dark:text-yellow-900">Intermediate</span>}
+                            {project.level === 3 && <span class="absolute font-extrabold bg-purple-100 text-purple-800 text-lg mr-2 px-2.5 py-0.5 rounded dark:bg-purple-200 dark:text-purple-900">Advance</span>}
+                            {project.level === 4 && <span class="absolute font-extrabold bg-red-100 text-red-800 text-lg mr-2 px-2.5 py-0.5 rounded dark:bg-red-200 dark:text-red-900">Expert</span>}
                             <img className="w-full" src="https://wallpaperbat.com/img/38515-train-track-wallpaper.jpg" alt="Mountain" />
                             <div className="px-6 py-4">
-                                <div className="text-white font-bold text-xl mb-2">Mountain</div>
+                                <div className="text-white font-bold text-xl mb-2">{project.name}</div>
                                 <p className="text-gray-300 text-base">
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus quia, Nonea! Maiores et perferendis eaque, exercitationem praesentium nihil.
+                                {project.description}
                                 </p>
                             </div>
                             <div className="px-6 pt-4 pb-2">
-                                <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-black mr-2 mb-2">#photography</span>
-                                <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-black mr-2 mb-2">#travel</span>
-                                <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-black mr-2 mb-2">#winter</span>
+                                {project.languages.map((language, index) => {
+                                    return (
+                                        <span key={index} className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-black mr-2 mb-2">#{language}</span>
+                                    );
+                                })}
+                                {/* <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-black mr-2 mb-2">#travel</span>
+                                <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-black mr-2 mb-2">#winter</span> */}
                             </div>
                         </div>
                     );

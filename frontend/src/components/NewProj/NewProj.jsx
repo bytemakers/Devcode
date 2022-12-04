@@ -2,6 +2,7 @@ import { Suspense, useEffect, useState } from 'react';
 import { json, useNavigate } from 'react-router-dom';
 import Navbar from '../Navbar/Navbar';
 import { Helmet } from "react-helmet";
+import './newproject.css'
 
 const NewProj = () => {
   const [name, setName] = useState("");
@@ -104,18 +105,18 @@ const NewProj = () => {
               <div className="flex flex-col p-4 bg-gray-900 my-4 rounded-2xl">
                 <div class="mt-12 mb-6">
                   <label htmlFor="base-input" class="block mb-2 text-xl font-medium text-white">Project Name</label>
-                  <input value={name} onChange={(e) => setName(e.target.value)} type="text" id="base-input" class="border text-sm rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500" placeholder="Project Title"></input>
+                  <input value={name} onChange={(e) => setName(e.target.value)} type="text" id="base-input" class="border text-sm rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 outline-none text-white" placeholder="Project Title"></input>
                 </div>
                 <div class="mb-6">
                     <label htmlFor="large-input" class="block mb-2 text-xl font-medium text-white"> Project Description</label>
-                    <input value={description} onChange={(e) => setDescription(e.target.value)} type="text" id="large-input" class="block p-4 w-full bg-gray-700 rounded-lg border border-gray-300 sm:text-md placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500" placeholder="Project Description"/>
+                    <input value={description} onChange={(e) => setDescription(e.target.value)} type="text" id="large-input" class="block p-4 w-full bg-gray-700 rounded-lg sm:text-md placeholder-gray-400 text-white outline-none" placeholder="Project Description"/>
                 </div>
               </div>
 
               <div className="flex flex-col p-4 bg-gray-900 rounded-2xl">
                 <form onSubmit={formSubmit} className="space-y-5 flex flex-col">     
                   <label htmlFor="countries" className="block mb-2 text-xl font-medium text-white">Select project level</label>
-                  <select onChange={(e) => setLevel(e.target.value)} id="countries" className="border text-sm rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500">
+                  <select onChange={(e) => setLevel(e.target.value)} id="countries" className="border text-sm rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white outline-none">
                     <option value={1}>Beginner</option>
                     <option value={2}>Intermediate</option>
                     <option value={3}>Advanced</option>
@@ -182,9 +183,12 @@ const NewProj = () => {
                   </div>
 
                 </fieldset>
-                  <label className="block mb-[-20px] text-xl font-medium text-white" htmlFor="user_avatar">Upload file</label>
-                  <input onChange={handleImage} className="text-white block w-full text-sm rounded-lg border cursor-pointertext-gray-400 focus:outline-none bg-gray-700 border-gray-600 placeholder-gray-400" aria-describedby="user_avatar_help" id="user_avatar" type="file" />
+                  <label className="block mb-[-20px] text-xl font-medium text-white" htmlFor="user_avatar">Upload Project Image</label>
+                  <input onChange={handleImage} className="text-gray-400 block w-full text-sm rounded-lg border cursor-pointertext-gray-400 focus:outline-none bg-gray-700 border-gray-600 placeholder-gray-400" aria-describedby="user_avatar_help" id="user_avatar" type="file" />
+
                   <div className="mt-1 text-sm text-gray-300" id="user_avatar_help">A profile picture is useful to confirm your are logged into your account</div>
+
+
 
                   {/* <button type='submit' className='flex w-[100%] justify-center items-center p-2 rounded-full '>Submit</button> */}
                   <button type="submit" className="text-white z-40 bg-gradient-to-br rounded-xl from-purple-600 to-blue-500 hover:bg-gradient-to-bl font-medium rounded-r-lg text-sm px-7 py-[14px] text-center">Purple to Blue</button>
