@@ -102,6 +102,7 @@ const NewProj = () => {
                 <Navbar />
             </div>
             <div className="p-12 max-w-7xl m-auto">
+              <label className="text-4xl text-white">Add New Project</label>
               <div className="flex flex-col p-4 bg-gray-900 my-4 rounded-2xl">
                 <div class="mt-12 mb-6">
                   <label htmlFor="base-input" class="block mb-2 text-xl font-medium text-white">Project Name</label>
@@ -183,15 +184,15 @@ const NewProj = () => {
                   </div>
 
                 </fieldset>
-                  <label className="block mb-[-20px] text-xl font-medium text-white" htmlFor="user_avatar">Upload Project Image</label>
+                  <label className="block mb-[-20px] text-xl font-medium text-white" htmlFor="user_avatar">Upload Project Banner</label>
                   <input onChange={handleImage} className="text-gray-400 block w-full text-sm rounded-lg border cursor-pointertext-gray-400 focus:outline-none bg-gray-700 border-gray-600 placeholder-gray-400" aria-describedby="user_avatar_help" id="user_avatar" type="file" />
 
-                  <div className="mt-1 text-sm text-gray-300" id="user_avatar_help">A profile picture is useful to confirm your are logged into your account</div>
+                  <div className="mt-1 text-sm text-gray-300" id="user_avatar_help">A project banner showcases a image banner with some info about your project.</div>
 
 
 
                   {/* <button type='submit' className='flex w-[100%] justify-center items-center p-2 rounded-full '>Submit</button> */}
-                  <button type="submit" className="text-white z-40 bg-gradient-to-br rounded-xl from-purple-600 to-blue-500 hover:bg-gradient-to-bl font-medium rounded-r-lg text-sm px-7 py-[14px] text-center">Purple to Blue</button>
+                  <button type="submit" className="text-white z-40 bg-gradient-to-br rounded-xl from-purple-600 to-blue-500 hover:bg-gradient-to-bl font-medium rounded-r-lg text-sm px-7 py-[14px] text-center">Add New Project</button>
                 </form>
               </div>
             </div>
