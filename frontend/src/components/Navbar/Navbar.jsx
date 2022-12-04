@@ -24,7 +24,7 @@ const Navbar = () => {
         { name: 'Home', href: '/', current: true },
         { name: 'Features', href: '/#features', current: false },
         { name: 'Projects', href: '#', current: false },
-        { name: 'Github', href: '#', current: false },
+        { name: 'Github', href: 'https://github.com/devarshishimpi/devcode', current: false },
       ]
       
       function classNames(...classes) {

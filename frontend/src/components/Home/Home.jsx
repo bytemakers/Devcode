@@ -12,25 +12,25 @@ const Home = () => {
     {
       name: 'Showcase Your Projects',
       description:
-        'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maiores impedit perferendis suscipit eaque, iste dolor cupiditate blanditiis ratione.',
+        'We are on a mission to help you showcase your open source projects and skills in the most professional way possible.',
       icon: GlobeAltIcon,
     },
     {
       name: 'Collab With Awesome People',
       description:
-        'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maiores impedit perferendis suscipit eaque, iste dolor cupiditate blanditiis ratione.',
+        'Get involved with open source projects and collaborate with some of the best developers in the world.',
       icon: ScaleIcon,
     },
     {
-      name: 'Transfers are instant',
+      name: 'Learn Better',
       description:
-        'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maiores impedit perferendis suscipit eaque, iste dolor cupiditate blanditiis ratione.',
+        'We believe that everyone has the potential to be a great developer, Empowering you to learn better and faster.',
       icon: BoltIcon,
     },
     {
-      name: 'Mobile notifications',
+      name: 'Mobile friendly',
       description:
-        'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maiores impedit perferendis suscipit eaque, iste dolor cupiditate blanditiis ratione.',
+        'Responsive design and works flawlessly on all devices, be it a desktop, laptop, tablet or mobile.',
       icon: DevicePhoneMobileIcon,
     },
   ]
@@ -51,10 +51,6 @@ const Home = () => {
             <div className="sm:text-center">
               <h2 className="text-lg font-semibold leading-8 text-purple-600">Features</h2>
               <p className="mt-2 text-3xl font-bold tracking-tight text-white sm:text-4xl">The Only Platform To</p>
-              <p className="mx-auto mt-6 max-w-2xl text-lg leading-8 text-gray-200">
-                Lorem ipsum dolor sit amet consect adipisicing elit. Possimus magnam voluptatum cupiditate veritatis in
-                accusamus quisquam.
-              </p>
             </div>
 
             <div className="mt-20 max-w-lg sm:mx-auto md:max-w-none">
@@ -65,7 +61,7 @@ const Home = () => {
                       <feature.icon className="h-8 w-8" aria-hidden="true" />
                     </div>
                     <div className="sm:min-w-0 sm:flex-1">
-                      <p className="text-lg font-semibold leading-8 text-white">{feature.name}</p>
+                      <p className="text-xl font-semibold leading-8 text-white">{feature.name}</p>
                       <p className="mt-2 text-base leading-7 text-gray-300">{feature.description}</p>
                     </div>
                   </div>
