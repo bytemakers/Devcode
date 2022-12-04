@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Navbar from '../Navbar/Navbar';
+import { Helmet } from "react-helmet";
 
 const Projects = () => {
     const navigate = useNavigate();
@@ -33,6 +34,10 @@ const Projects = () => {
     
     return (
         <div className='bg-black'>
+            <Helmet>
+              <title>DevCode | Projects</title>
+              <meta name="description" content="View All Public Projects Submissions on DevCode" />
+            </Helmet>
             <section className="bg-black dark:bg-black">
             <div className="nav">
                 <Navbar />
