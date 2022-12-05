@@ -46,6 +46,10 @@ Create a `.env` file in the backend folder and add the following
 
 ```bash
 JWT_SECRET = "RANDOMSTRINGMUSTNOTCHANGE"
+mongoURI = "MONGO_URI"
+CLOUD_NAME = "YOUR_CLOUD_NAME"
+CLOUD_KEY = "YOUR_API_KEY"
+CLOUD_KEY_SECRET = "YOUR_CLOUD_KEY_SECRET"
 ```
 
 ### Deploying Frontend

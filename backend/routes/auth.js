@@ -139,7 +139,7 @@ router.post('/uploadproject', fetchuser, async (req, res) => {
         const { name, description, langArr, repoName, repoLink, level, image } = req.body;
 
         const result = await cloudinary.uploader.upload(image, {
-            folder: "products",
+            folder: "devcode/banners",
             // width: 300,
             // crop: "scale"
         });
