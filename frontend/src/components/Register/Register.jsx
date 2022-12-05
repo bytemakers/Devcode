@@ -4,14 +4,18 @@ import Footer from '../Footer/Footer';
 import Navbar from '../Navbar/Navbar';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Helmet } from "react-helmet";
+import {useLocation} from "react-router-dom";
 
 const Register = () => {
     const [fName, setFName] = useState("");
     const [lName, setlName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+
+    const search = useLocation().search;
+    const redirectURI = new URLSearchParams(search).get('redirect');
 
     const navigate = useNavigate();
 
@@ -42,7 +46,12 @@ const Register = () => {
         else if (json.authtoken) {
             localStorage.setItem('auth-token', json.authtoken);
             // toast.success(json.authtoken);
-            navigate('/projects');
+            if (!redirectURI) {
+                navigate('/projects');
+            }
+            else {
+                navigate(`/newproject?redirect=${redirectURI}`);
+            }
         }
         else {
             toast.error('Internal Server Error');
@@ -87,7 +96,7 @@ const Register = () => {
                             </div>
                             <button type="submit" className="w-full text-white focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center bg-primary-600 hover:bg-primary-700 focus:ring-primary-800">Register</button>
                             <p className="text-sm font-light text-gray-400">
-                                Already Have an account? <a href="/login" className="font-medium hover:underline text-primary-500">Sign In</a>
+                                Already Have an account? <Link to={redirectURI?`/login?redirect=${redirectURI}`:'/login'} className="font-medium hover:underline text-primary-500">Sign In</Link>
                             </p>
                         </form>
                     </div>

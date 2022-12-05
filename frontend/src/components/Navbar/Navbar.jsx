@@ -33,7 +33,8 @@ const Navbar = () => {
 
       const signout = () => {
         localStorage.removeItem('auth-token');
-        navigate('/');
+        window.location.href = "http://localhost:3000";
+        window.location.replace("http://localhost:3000");
       }
       
   return (
