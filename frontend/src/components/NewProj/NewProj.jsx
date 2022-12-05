@@ -151,7 +151,7 @@ const NewProj = () => {
               <div className="nav">
                 <Navbar />
             </div>
-            <div className="p-12 max-w-7xl m-auto">
+            <div className="md:p-12 p-5 max-w-7xl m-auto">
               <label className="text-4xl text-white">Add New Project</label>
               <div className="flex flex-col p-4 bg-gray-900 my-4 rounded-2xl">
                 <div class="mt-3 mb-6">
@@ -181,7 +181,7 @@ const NewProj = () => {
                 <fieldset>
                   <label htmlFor="countries" className="block mb-4 text-xl font-medium text-white">Select the technologies for your project</label>
                   <legend class="sr-only">Checkbox variants</legend>
-                  <div className='flex flex-row space-x-40'>
+                  <div className='flex flex-row md:space-x-40 space-x-10'>
                     <div>
                       <div class="flex items-center mb-4">
                           <input checked={language1} onChange={(e) => setLanguage1(!language1)} id="checkbox-1" type="checkbox" value={language1} class="w-4 h-4 text-blue-600 rounded focus:ring-blue-600 ring-offset-gray-800 focus:ring-2 bg-gray-700 border-gray-600"/>
