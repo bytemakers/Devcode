@@ -35,7 +35,7 @@ const Hero = () => {
                 <input value={url} onChange={(e) => setUrl(e.target.value)} type="text" id="website-admin" className="rounded-none border block flex-1 min-w-0 w-full text-sm  bg-gray-600 border-gray-600 placeholder-gray-400 text-white outline-none" placeholder="your_project" />
               </div>
               
-              <button type="submit" className="text-white z-40 bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl font-medium rounded-r-lg text-sm px-7 py-[14px] text-center">Add Project</button>
+              <button disabled={url === ""} type="submit" className="text-white z-40 bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl font-medium rounded-r-lg text-sm px-7 py-[14px] text-center">Add Project</button>
             </form>
 
           </div>

@@ -4,7 +4,7 @@ import Footer from '../Footer/Footer';
 import Navbar from '../Navbar/Navbar';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { redirect, useNavigate } from 'react-router-dom';
+import { Link, redirect, useNavigate } from 'react-router-dom';
 import { Helmet } from "react-helmet";
 import {useLocation} from "react-router-dom";
 
@@ -98,7 +98,7 @@ const Login = () => {
                             </div>
                             <button type="submit" className="bg-grey-200 w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center bg-primary-600 hover:bg-primary-700 focus:ring-primary-800">Sign in</button>
                             <p className="text-sm font-light text-gray-400">
-                                Don't have an account yet? <a href="/register" className="font-medium text-primary-600 hover:underline text-primary-500">Sign up</a>
+                                Don't have an account yet? <Link to={redirectURI?`/register?redirect=${redirectURI}`:'/register'} className="font-medium text-primary-600 hover:underline text-primary-500">Sign up</Link>
                             </p>
                         </form>
                     </div>
