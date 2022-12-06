@@ -149,7 +149,7 @@ const NewProj = () => {
               <meta name="description" content="Add New Project Submission to Devcode Here" />
           </Helmet>
               <div className="nav">
-                <Navbar />
+                <Navbar focus={"none"} />
             </div>
             <div className="md:p-12 p-5 max-w-7xl m-auto">
               <label className="text-4xl text-white">Add New Project</label>

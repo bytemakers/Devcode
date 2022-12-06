@@ -42,7 +42,7 @@ const Home = () => {
             <meta name="description" content="Grow, Share And Connect With Developers." />
         </Helmet>
 
-        <Navbar />
+        <Navbar focus={"home"} />
 
         <Hero />
 

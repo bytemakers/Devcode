@@ -64,7 +64,7 @@ const Login = () => {
         </Helmet>
         <section className="bg-black">
             <div className="nav">
-                <Navbar />
+                <Navbar focus={"none"} />
             </div>
             <div className="flex mt-[-90px] flex-col bg-black items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
                 <a href="#" className="flex items-center mb-6 text-2xl font-semibold text-white">
