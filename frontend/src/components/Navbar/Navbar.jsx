@@ -8,12 +8,28 @@ import { useNavigate, Link } from 'react-router-dom';
 
 const Navbar = (props) => {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [imageURI, setImageURI] = useState("");
 
     const navigate = useNavigate();
+
+    const getUser = async () => {
+      const authtoken = localStorage.getItem('auth-token');
+      const response = await fetch('http://localhost:8181/api/auth/getuser' ,{
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'auth-token': authtoken
+        }
+      });
+      const json = await response.json();
+      // console.log(json);
+      setImageURI(json.imageURI);
+    }
 
     useEffect(() => {
       if (localStorage.getItem('auth-token')) {
         setIsLoggedIn(true);
+        getUser();
       }
       else {
         setIsLoggedIn(false);
@@ -104,7 +120,7 @@ const Navbar = (props) => {
                       <span className="sr-only">Open user menu</span>
                       <img
                         className="h-8 w-8 rounded-full"
-                        src="https://res.cloudinary.com/dvstech/image/upload/v1670330775/devcode/contact.png"
+                        src={imageURI}
                         alt=""
                       />
                     </Menu.Button>
