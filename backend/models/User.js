@@ -17,6 +17,10 @@ const UserSchema = new Schema({
     password: {
         type: String,
         required: true
+    },
+    imageURI: {
+        type: String,
+        required: true
     }
 }, {timestamps: true});
 

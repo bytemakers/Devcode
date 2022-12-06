@@ -41,7 +41,7 @@ router.post('/createuser', [
             lname: req.body.lname,
             email: req.body.email,
             password: hash,
-            imageURI: req.body.imageURI,
+            imageURI: `https://ui-avatars.com/api/?name=${req.body.fname}+${req.body.lname}&background=random`,
         });
 
         let payload = {
@@ -296,6 +296,38 @@ router.get('/countclicks', fetchuser, async (req, res) => {
         });
 
         res.json({ clicks: count });
+
+    } catch (error) {
+        console.error(error);
+        return res.status(500).send("Internal Server Error");
+    }
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Route 8: Get user details without the password: GET: http://localhost:8181/api/auth/getuser. Login Required
+router.get('/getuser', fetchuser, async (req, res) => {
+
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
+
+
+    try {
+        const theUser = await UserSchema.findById(req.user.id).select('-password');
+        res.status(200).json(theUser);
+
 
     } catch (error) {
         console.error(error);
