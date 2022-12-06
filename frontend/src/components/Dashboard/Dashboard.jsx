@@ -57,7 +57,7 @@ const Dashboard = () => {
               <meta name="description" content="View DevCode Dashboard And Stats Here" />
             </Helmet>
             <div className="nav">
-                <Navbar />
+                <Navbar focus={"none"} />
             </div>
             <div className='flex w-[80%] justify-center items-center flex-col m-auto mt-5'>
                 <label className="text-4xl text-white text-bold">Your Dashboard</label>

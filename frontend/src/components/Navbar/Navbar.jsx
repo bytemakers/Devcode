@@ -6,7 +6,7 @@ import logo from '../../assets/devcode.png'
 import { useNavigate, Link } from 'react-router-dom';
 
 
-const Navbar = () => {
+const Navbar = (props) => {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
 
     const navigate = useNavigate();
@@ -21,9 +21,9 @@ const Navbar = () => {
     }, []);
     
     const navigation = [
-        { name: 'Home', href: '/', current: true },
+        { name: 'Home', href: '/', current: (props.focus === "home") },
         { name: 'Features', href: '/#features', current: false },
-        { name: 'Projects', href: '/projects', current: false },
+        { name: 'Projects', href: '/projects', current: (props.focus === "projects") },
         { name: 'Github', href: 'https://github.com/devarshishimpi/devcode', current: false },
       ]
       
