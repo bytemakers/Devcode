@@ -1,6 +1,6 @@
 # DEVCODE
 
-### ThIS PROJECT IS PART OF THE
+### THIS PROJECT IS PART OF THE
 
 ![bannerhackathon](images/bannerhackathon.png)
 
