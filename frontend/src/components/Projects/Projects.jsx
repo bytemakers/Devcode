@@ -11,6 +11,8 @@ const Projects = () => {
     const navigate = useNavigate();
 
     const [projectList, setProjectList] = useState([]);
+    const [filteredProjectLists, setFilteredProjectLists] = useState([]);
+    const [currentlyActive, setCurrentlyActive] = useState(null);
 
     const getProjects = async() => {
         const authtoken = localStorage.getItem('auth-token');
@@ -23,6 +25,7 @@ const Projects = () => {
         });
         const json = await response.json();
         setProjectList(json);
+        setFilteredProjectLists(json);
     }
 
     useEffect(() => {
@@ -33,6 +36,7 @@ const Projects = () => {
             getProjects();
         }
     }, []);
+
 
     const collaborateClick = async (id, link) => {
         const authtoken = localStorage.getItem('auth-token');
@@ -56,16 +60,38 @@ const Projects = () => {
     }
 
     const sortOptions = [
-        { name: 'Most Popular', href: '#', current: true },
-        { name: 'Best Rating', href: '#', current: false },
-        { name: 'Newest', href: '#', current: false },
-        { name: 'Price: Low to High', href: '#', current: false },
-        { name: 'Price: High to Low', href: '#', current: false },
+        { name: 'Level: Easy', href: '#', current: false, id: 1 },
+        { name: 'Level: Intermediate', href: '#', current: false, id: 2 },
+        { name: 'Level: Advanced', href: '#', current: false, id: 3 },
+        { name: 'Level: Expert', href: '#', current: false, id: 4 },
       ]
 
       function classNames(...classes) {
         return classes.filter(Boolean).join(' ')
       }
+
+      const filter = (id) => {
+        if (currentlyActive === id) {
+          setCurrentlyActive(null);
+          setFilteredProjectLists(projectList);
+        }
+        else {
+          setCurrentlyActive(id);
+          if (id === 1) {
+            setFilteredProjectLists(projectList.filter(project => project.level === 1));
+          }
+          else if (id === 2) {
+            setFilteredProjectLists(projectList.filter(project => project.level === 2));
+          }
+          else if (id === 3) {
+            setFilteredProjectLists(projectList.filter(project => project.level === 3));
+          }
+          else if (id === 4) {
+            setFilteredProjectLists(projectList.filter(project => project.level === 4));
+          }
+        }
+      }
+  
     
     return (
         <div className='bg-black'>
@@ -102,21 +128,22 @@ const Projects = () => {
                   leaveFrom="transform opacity-100 scale-100"
                   leaveTo="transform opacity-0 scale-95"
                 >
-                  <Menu.Items className="absolute right-0 z-10 mt-2 w-40 origin-top-right rounded-md bg-gray-800 shadow-2xl ring-1 ring-black ring-opacity-5 focus:outline-none">
+                  <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-gray-800 shadow-2xl ring-1 ring-black ring-opacity-5 focus:outline-none">
                     <div className="py-1">
                       {sortOptions.map((option) => (
                         <Menu.Item key={option.name}>
                           {({ active }) => (
-                            <a
-                              href={option.href}
+                            <p
+                              onClick={() => filter(option.id)}
                               className={classNames(
-                                option.current ? 'font-medium text-gray-300' : 'text-white',
+                                option.current ? 'font-medium text-gray-300 bg-gray-500' : 'text-white',
                                 active ? 'bg-gray-500' : '',
-                                'block px-4 py-2 text-sm'
+                                `block px-4 py-2 text-sm, option-${option.id} cursor-pointer`,
+                                currentlyActive === option.id ? 'bg-gray-500' : ''
                               )}
                             >
                               {option.name}
-                            </a>
+                            </p>
                           )}
                         </Menu.Item>
                       ))}
@@ -127,7 +154,7 @@ const Projects = () => {
             </div>
           </div>
             <div className="p-10 grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-5">
-                {projectList.map((project) => {
+                {filteredProjectLists.map((project) => {
                     return (
                         <div key={project._id} className="relative overflow-hidden shadow-lg bg-[#262626] p-0 rounded-xl">
                             {project.level === 1 && <span class="absolute font-extrabold bg-green-100 text-green-800 text-lg mr-2 px-2.5 py-0.5 rounded dark:bg-green-200 dark:text-green-900">Beginner</span>}
