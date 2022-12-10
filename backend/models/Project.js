@@ -43,6 +43,10 @@ const ProjectSchema = new Schema({
     click: {
         type: Number,
         default: 0
+    },
+    likedBy: {
+        type: Array,
+        default: []
     }
 }, {timestamps: true});
 
