@@ -6,6 +6,7 @@ import { Helmet } from "react-helmet";
 import { Fragment } from 'react'
 import { Menu, Transition } from '@headlessui/react'
 import { ChevronDownIcon, FunnelIcon, MinusIcon, PlusIcon, Squares2X2Icon } from '@heroicons/react/20/solid'
+import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai';
 
 const Projects = () => {
     const navigate = useNavigate();
@@ -13,8 +14,9 @@ const Projects = () => {
     const [projectList, setProjectList] = useState([]);
     const [filteredProjectLists, setFilteredProjectLists] = useState([]);
     const [currentlyActive, setCurrentlyActive] = useState(null);
+    const [myDetails, setMyDetails] = useState([]);
 
-    const getProjects = async() => {
+    const getProjects = async () => {
         const authtoken = localStorage.getItem('auth-token');
         const response = await fetch('http://localhost:8181/api/auth/getprojects', {
             method: 'GET',
@@ -28,12 +30,26 @@ const Projects = () => {
         setFilteredProjectLists(json);
     }
 
+    const getMyDetails = async () => {
+      const authtoken = localStorage.getItem('auth-token');
+      const response = await fetch('http://localhost:8181/api/auth/getuser' ,{
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'auth-token': authtoken
+        }
+      });
+      const json = await response.json();
+      setMyDetails(json);
+    }
+
     useEffect(() => {
         if (!localStorage.getItem('auth-token')) {
             navigate('/');
         }
         else {
             getProjects();
+            getMyDetails();
         }
     }, []);
 
@@ -92,6 +108,39 @@ const Projects = () => {
         }
       }
   
+
+      const mouseEnterHandlerImage = (projectId) => {
+        const imageHover = document.getElementById(`image-hover-${projectId}`);
+        imageHover.classList.add('opacity-20');
+      }
+
+      const mouseLeaveHandlerImage = (projectId) => {
+        const imageHover = document.getElementById(`image-hover-${projectId}`);
+        imageHover.classList.remove('opacity-20');
+      }
+
+      const likeClicked = async (projectId) => {
+        const authtoken = localStorage.getItem('auth-token');
+        const response = await fetch('http://localhost:8181/api/project/likeproject', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'auth-token': authtoken
+          },
+          body: JSON.stringify({ projectId })
+        });
+        const json = await response.json();
+        await getProjects();
+        // let newArray = [];
+        // newArray = filteredProjectLists;
+        // newArray.forEach(project => {
+        //   if (project._id === projectId) {
+        //     project.likedBy.push(myDetails._id);
+        //   }
+        // });
+
+        // setFilteredProjectLists(newArray);
+      }
     
     return (
         <div className='bg-black'>
@@ -157,11 +206,26 @@ const Projects = () => {
                 {filteredProjectLists.map((project) => {
                     return (
                         <div key={project._id} className="relative overflow-hidden shadow-lg bg-[#262626] p-0 rounded-xl">
-                            {project.level === 1 && <span class="absolute font-extrabold bg-green-100 text-green-800 text-lg mr-2 px-2.5 py-0.5 rounded dark:bg-green-200 dark:text-green-900">Beginner</span>}
-                            {project.level === 2 && <span class="absolute font-extrabold bg-yellow-100 text-yellow-800 text-lg mr-2 px-2.5 py-0.5 rounded dark:bg-yellow-200 dark:text-yellow-900">Intermediate</span>}
-                            {project.level === 3 && <span class="absolute font-extrabold bg-purple-100 text-purple-800 text-lg mr-2 px-2.5 py-0.5 rounded dark:bg-purple-200 dark:text-purple-900">Advance</span>}
-                            {project.level === 4 && <span class="absolute font-extrabold bg-red-100 text-red-800 text-lg mr-2 px-2.5 py-0.5 rounded dark:bg-red-200 dark:text-red-900">Expert</span>}
-                            <img className="w-full" src={project.image.url} alt="Mountain" />
+                            {project.level === 1 && <span class="absolute font-extrabold bg-green-100 text-green-800 text-lg mr-2 px-2.5 py-0.5 rounded dark:bg-green-200 dark:text-green-900 z-20">Beginner</span>}
+                            {project.level === 2 && <span class="absolute font-extrabold bg-yellow-100 text-yellow-800 text-lg mr-2 px-2.5 py-0.5 rounded dark:bg-yellow-200 dark:text-yellow-900 z-20">Intermediate</span>}
+                            {project.level === 3 && <span class="absolute font-extrabold bg-purple-100 text-purple-800 text-lg mr-2 px-2.5 py-0.5 rounded dark:bg-purple-200 dark:text-purple-900 z-20">Advance</span>}
+                            {project.level === 4 && <span class="absolute font-extrabold bg-red-100 text-red-800 text-lg mr-2 px-2.5 py-0.5 rounded dark:bg-red-200 dark:text-red-900 z-20">Expert</span>}
+                            <div onMouseLeave={() => mouseLeaveHandlerImage(project._id)} onMouseEnter={() => mouseEnterHandlerImage(project._id)} className="relative flex">
+                              <img id={`image-hover-${project._id}`} className="w-full cursor-pointer transition-all" src={project.image.url} alt="Mountain" />
+                              <div className="absolute top-0 left-0 hover:z-30 w-full h-full flex flex-row justify-center cursor-pointer items-center opacity-0 hover:opacity-100 text-white ">
+                              <button class="text-pink-500 background-transparent font-bold uppercase px-8 py-3 outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150 flex space-x-10 flex-row justify-center items-center border border-pink-500 rounded-full hover:bg-gray-500 hover:bg-opacity-30" type="button" onClick={() => likeClicked(project._id)}>
+                                {project.likedBy.includes(myDetails._id) ? 
+                                <>
+                                <AiFillHeart style={{ fontSize: '30px' }} /> &nbsp;&nbsp; {project.likedBy.length} {project.likedBy.length === 1 ? 'Like' : 'Likes'}
+                                </>
+                                :
+                                <>
+                                <AiOutlineHeart style={{ fontSize: '30px' }} /> &nbsp;&nbsp; {project.likedBy.length} {project.likedBy.length === 1 ? 'Like' : 'Likes'}
+                                </>
+                              }
+                              </button>
+                              </div>
+                            </div>
                             <div className="px-6 py-4">
                                 <div className="text-white font-bold text-xl mb-2">{project.name}</div>
                                 <p className="text-gray-300 text-base">
