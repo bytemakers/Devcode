@@ -189,7 +189,8 @@ router.get('/getprojects', fetchuser, async (req, res) => {
 
 
     try {
-        const allProjects = await ProjectSchema.find({ userId: { $ne: req.user.id } });
+        // const allProjects = await ProjectSchema.find({ userId: { $ne: req.user.id } });
+        const allProjects = await ProjectSchema.find();
         // console.log(req.user.id);
         res.json(allProjects);
 
