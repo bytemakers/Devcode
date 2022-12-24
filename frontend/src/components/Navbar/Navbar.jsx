@@ -40,7 +40,7 @@ const Navbar = (props) => {
         { name: 'Home', href: '/', current: (props.focus === "home") },
         { name: 'Features', href: '/#features', current: false },
         { name: 'Projects', href: '/projects', current: (props.focus === "projects") },
-        { name: 'Github', href: 'https://github.com/devarshishimpi/devcode', current: false },
+        { name: 'Github', href: 'https://github.com/dvstechlabs/devcode', current: false },
       ]
       
       function classNames(...classes) {
