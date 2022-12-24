@@ -45,7 +45,7 @@ const Projects = () => {
 
     useEffect(() => {
         if (!localStorage.getItem('auth-token')) {
-            navigate('/');
+            navigate('/login');
         }
         else {
             getProjects();
