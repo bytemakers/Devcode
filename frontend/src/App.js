@@ -6,6 +6,8 @@ import Dashboard from './components/Dashboard/Dashboard';
 import Projects from './components/Projects/Projects';
 import Register from './components/Register/Register';
 import NewProj from './components/NewProj/NewProj';
+import AdminDash from './components/AdminDash/AdminDash';
+import AdminLogin from './components/AdminLogin/AdminLogin';
 import { useEffect } from 'react';
 
 
@@ -22,6 +24,8 @@ function App() {
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/projects" element={<Projects />} />
         <Route path="/newproject" element={<NewProj />} />
+        <Route path="/admin" element={<AdminDash />} />
+        <Route path="/adminlogin" element={<AdminLogin />} />
       </Routes>
     </Router>
   );
