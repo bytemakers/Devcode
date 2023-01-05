@@ -7,6 +7,8 @@ import { Fragment } from 'react'
 import { Menu, Transition } from '@headlessui/react'
 import { ChevronDownIcon, FunnelIcon, MinusIcon, PlusIcon, Squares2X2Icon } from '@heroicons/react/20/solid'
 import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Projects = () => {
     const navigate = useNavigate();
@@ -17,12 +19,10 @@ const Projects = () => {
     const [myDetails, setMyDetails] = useState([]);
 
     const getProjects = async () => {
-        const authtoken = localStorage.getItem('auth-token');
         const response = await fetch('http://localhost:8181/api/auth/getprojects', {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
-                'auth-token': authtoken
             }
         });
         const json = await response.json();
@@ -45,7 +45,8 @@ const Projects = () => {
 
     useEffect(() => {
         if (!localStorage.getItem('auth-token')) {
-            navigate('/login');
+            // navigate('/login');
+            getProjects();
         }
         else {
             getProjects();
@@ -121,25 +122,21 @@ const Projects = () => {
 
       const likeClicked = async (projectId) => {
         const authtoken = localStorage.getItem('auth-token');
-        const response = await fetch('http://localhost:8181/api/project/likeproject', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'auth-token': authtoken
-          },
-          body: JSON.stringify({ projectId })
-        });
-        const json = await response.json();
-        await getProjects();
-        // let newArray = [];
-        // newArray = filteredProjectLists;
-        // newArray.forEach(project => {
-        //   if (project._id === projectId) {
-        //     project.likedBy.push(myDetails._id);
-        //   }
-        // });
-
-        // setFilteredProjectLists(newArray);
+        if (!authtoken) {
+          toast.error("You need to login to like a project!!");
+        }
+        else {
+          const response = await fetch('http://localhost:8181/api/project/likeproject', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'auth-token': authtoken
+            },
+            body: JSON.stringify({ projectId })
+          });
+          const json = await response.json();
+          await getProjects();
+        }
       }
     
     return (
@@ -247,7 +244,8 @@ const Projects = () => {
                 })}
             
             </div>
-        </div>
+            <ToastContainer closeButton={false} toastStyle={{ backgroundColor: "#202d40", color: 'white' }} />
+          </div>
     )
   }
 

@@ -180,14 +180,7 @@ router.post('/uploadproject', fetchuser, async (req, res) => {
 
 
 // Route 4: Get All Projects: GET: http://localhost:8181/api/auth/getprojects. Login Required
-router.get('/getprojects', fetchuser, async (req, res) => {
-
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-      return res.status(400).json({ errors: errors.array() });
-    }
-
-
+router.get('/getprojects', async (req, res) => {
     try {
         // const allProjects = await ProjectSchema.find({ userId: { $ne: req.user.id } });
         const allProjects = await ProjectSchema.find();
