@@ -130,6 +130,14 @@ const NewProj = () => {
 
   const handleImage = (e) => {
     const file = e.target.files[0];
+    const allowedFileType = ["png", "jpeg", "gif", "jpg" ];
+
+    let extension = file.name.split('.').pop();
+    if(!allowedFileType.includes(extension))
+    {  
+      toast.error("File type not allowed");
+      return;
+    }
 
     const fileSize = file.size / 1024 / 1024; // in MiB
     if (fileSize > 1) {
