@@ -130,6 +130,21 @@ const NewProj = () => {
 
   const handleImage = (e) => {
     const file = e.target.files[0];
+    const allowedFileType = ["png", "jpeg", "gif", "jpg" ];
+
+    let extension = file.name.split('.').pop();
+    if(!allowedFileType.includes(extension))
+    {  
+      toast.error("File type not allowed");
+      return;
+    }
+
+    const fileSize = file.size / 1024 / 1024; // in MiB
+    if (fileSize > 1) {
+      toast.error('File size exceeds 1MB');
+      return;
+    }
+
     setFileToBase(file);
     console.log(file);
   }
@@ -239,7 +254,7 @@ const NewProj = () => {
 
                 </fieldset>
                   <label className="block mb-[-20px] text-xl font-medium text-white" htmlFor="user_avatar">Upload Project Banner</label>
-                  <input onChange={handleImage} className="text-gray-400 block w-full text-sm rounded-lg border cursor-pointertext-gray-400 focus:outline-none bg-gray-700 border-gray-600 placeholder-gray-400" aria-describedby="user_avatar_help" id="user_avatar" type="file" />
+                  <input onChange={handleImage} className="text-gray-400 block w-full text-sm rounded-lg border cursor-pointertext-gray-400 focus:outline-none bg-gray-700 border-gray-600 placeholder-gray-400" aria-describedby="user_avatar_help" id="user_avatar" type="file" accept="image/png, image/gif, image/jpeg" />
 
                   <div className="mt-1 text-sm text-gray-300" id="user_avatar_help">A project banner showcases a image banner with some info about your project. Use a ratio of 100x42 for best results</div>
 
