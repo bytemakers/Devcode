@@ -37,6 +37,44 @@ const NewProj = () => {
     }
   }, []);
 
+
+  const notIsCorrectURL = async () => {
+    // Creating an instance of URL interface
+    let url;
+    try {
+      url = new URL(repoLink);
+    } catch (error) {
+      console.log(error);
+      return true;
+    }
+
+    if (!url) {
+      return false;
+    }
+
+    // Spliting the url by '/'
+    const splitURL = url.toString().split("/");
+
+    // if the link to the website is not github, return false;
+    if (url.hostname !== 'github.com') {
+      return true;
+    }
+
+    // Generating GitHub API URI for fetch request.
+    const githubRequestURI = `https://api.github.com/repos/${splitURL[3]}/${splitURL[4]}`;
+
+    const response = await fetch(githubRequestURI);
+    const json = await response.json();
+
+    // if the repo is not found, return false;
+    if (response.status !== 200) {
+      return true;
+    }
+    else {
+      return false;
+    }
+  }
+
   const formSubmit = async (e) => {
     e.preventDefault();
 
@@ -88,6 +126,9 @@ const NewProj = () => {
     }
     else if (image === null) {
       toast.error("Please upload a valid image");
+    }
+    else if (await notIsCorrectURL()) {
+      toast.error("Please enter a correct GitHub url");
     }
     else {
       const authtoken = localStorage.getItem('auth-token');
