@@ -200,7 +200,11 @@ const Projects = () => {
             </div>
           </div>
             <div className="p-10 grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-5">
-                {filteredProjectLists.map((project) => {
+                {filteredProjectLists.length === 0?
+                    <div className="mt-2 text-base leading-7 text-gray-300">
+                        No projects found!
+                    </div> :
+                    filteredProjectLists.map((project) => {
                     return (
                         <div key={project._id} className="relative overflow-hidden shadow-lg bg-[#262626] p-0 rounded-xl">
                             {project.level === 1 && <span class="absolute font-extrabold bg-green-100 text-green-800 text-lg mr-2 px-2.5 py-0.5 rounded dark:bg-green-200 dark:text-green-900 z-20">Beginner</span>}
