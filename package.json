@@ -66,6 +66,7 @@
     "postcss-value-parser": "^4.2.0",
     "queue-microtask": "^1.2.3",
     "quick-lru": "^5.1.1",
+    "react-infinite-scroll-component": "^6.1.0",
     "react-router-dom": "^6.4.4",
     "react-toastify": "^9.1.1",
     "read-cache": "^1.0.0",

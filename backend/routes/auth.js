@@ -183,9 +183,50 @@ router.post('/uploadproject', fetchuser, async (req, res) => {
 router.get('/getprojects', async (req, res) => {
     try {
         // const allProjects = await ProjectSchema.find({ userId: { $ne: req.user.id } });
-        const allProjects = await ProjectSchema.find();
+        const allProjects = await ProjectSchema.find().sort({ createdAt: 'asc' });
         // console.log(req.user.id);
         res.json(allProjects);
+
+
+    } catch (error) {
+        console.error(error);
+        return res.status(500).send("Internal Server Error");
+    }
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Route 4.5: Get All Projects with pagination: GET: http://localhost:8181/api/auth/getprojects. Login Required
+router.get('/getprojects/:amount/:page', async (req, res) => {
+    try {
+        let allProjects = await ProjectSchema.find().sort({ createdAt: 'asc' });
+        const totalItems = allProjects.length;
+
+        let { page, amount } = req.params;
+        // Converting string to integer
+        page = parseInt(page);
+        amount = parseInt(amount);
+
+
+        // calculating start and end index
+        let startIdx = (page-1)*amount;
+        let endIdx = startIdx + amount;
+
+        // Slicing the array to get the required array
+        allProjects = allProjects.slice(startIdx, endIdx);    
+
+        // console.log(req.user.id);
+        res.json({allProjects, totalItems});
 
 
     } catch (error) {
