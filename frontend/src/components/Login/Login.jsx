@@ -11,9 +11,18 @@ import {useLocation} from "react-router-dom";
 const Login = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+
+
+    const location = useLocation();
+    const state = location.state;
+    const message = state ? state.message : null;
     
-    const search = useLocation().search;
+    const search = location.search;
     const redirectURI = new URLSearchParams(search).get('redirect');
+
+    if (message !== null) {
+        toast.info(message);
+    }
 
     const navigate = useNavigate();
 
@@ -62,6 +71,7 @@ const Login = () => {
             <title>DevCode | Login</title>
             <meta name="description" content="Login to your Devcode account here." />
         </Helmet>
+
         <section className="bg-black">
             <div className="nav">
                 <Navbar focus={"none"} />
