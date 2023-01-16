@@ -5,8 +5,22 @@ import Hero from '../Hero/Hero';
 import Footer from '../Footer/Footer';
 import Login from '../Login/Login';
 import { BoltIcon, DevicePhoneMobileIcon, GlobeAltIcon, ScaleIcon } from '@heroicons/react/24/outline'
+import { useLocation, useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
 
 const Home = () => {
+  const navigate = useNavigate();
+
+
+  const search = useLocation().search;
+  const accessToken = new URLSearchParams(search).get('access_token');
+
+
+  useEffect(() => {
+    if (accessToken) {
+      navigate(`/github/callback/${accessToken}`);
+    }
+  }, []);
 
   const features = [
     {
