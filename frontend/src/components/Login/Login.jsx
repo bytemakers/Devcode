@@ -7,10 +7,13 @@ import 'react-toastify/dist/ReactToastify.css';
 import { Link, redirect, useNavigate } from 'react-router-dom';
 import { Helmet } from "react-helmet";
 import {useLocation} from "react-router-dom";
+import { Authorizer, AuthorizerSocialLogin, useAuthorizer } from '@authorizerdev/authorizer-react';
 
 const Login = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+
+    const { user, token, loading } = useAuthorizer();
     
     const search = useLocation().search;
     const redirectURI = new URLSearchParams(search).get('redirect');
@@ -21,6 +24,7 @@ const Login = () => {
         if (localStorage.getItem('auth-token')) {
             navigate('/projects');
         }
+        console.log(token);
     }, []);
 
     const login = async (e) => {
@@ -56,6 +60,21 @@ const Login = () => {
         }
         console.log(json);
     }
+
+
+    const loginUsingGitHub = async (data) => {
+        const response = await fetch('https://localhost:8181/api/auth/github', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        });
+        const json = await response.json();
+        console.log(json);
+    }
+
+
   return (
     <>
         <Helmet>
@@ -101,6 +120,8 @@ const Login = () => {
                                 Don't have an account yet? <Link to={redirectURI?`/register?redirect=${redirectURI}`:'/register'} className="font-medium text-primary-600 hover:underline text-primary-500">Sign up</Link>
                             </p>
                         </form>
+                        {loading && 'GitHub Login'}
+                        <Authorizer onLogin={(data) => loginUsingGitHub(data)} onSignup={(data) => loginUsingGitHub(data)} />
                     </div>
                 </div>
             </div>

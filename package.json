@@ -20,6 +20,7 @@
     "tailwindcss": "^3.2.4"
   },
   "dependencies": {
+    "@authorizerdev/authorizer-react": "^1.1.5",
     "acorn": "^7.4.1",
     "acorn-node": "^1.8.2",
     "acorn-walk": "^7.2.0",

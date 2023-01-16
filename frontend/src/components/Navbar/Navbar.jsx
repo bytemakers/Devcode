@@ -3,12 +3,14 @@ import { Fragment } from 'react'
 import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import logo from '../../assets/devcode.png'
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate, Link, useLocation } from 'react-router-dom';
 
 
 const Navbar = (props) => {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [imageURI, setImageURI] = useState("");
+
+    const location = useLocation();
 
     const navigate = useNavigate();
 
@@ -22,6 +24,10 @@ const Navbar = (props) => {
         }
       });
       const json = await response.json();
+
+      if (json.fname === "Default" && json.lname === "Name" && location.pathname !== '/') {
+        navigate('/user/new');
+      }
       // console.log(json);
       setImageURI(json.imageURI);
     }

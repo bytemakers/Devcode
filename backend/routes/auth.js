@@ -7,8 +7,7 @@ var jwt = require('jsonwebtoken');
 const cloudinary = require('../utils/cloudinary');
 const ProjectSchema = require('../models/Project');
 const fetchuser = require('../middleware/fetchuser');
-// const { default: Projects } = require('../../frontend/src/components/Projects/Projects');
-// const fetchuser = require('../middleware/fetchuser');
+const { v4: uuidv4 } = require('uuid');
 const dotenv = require('dotenv').config();
 
 const JWT_SECRET = process.env.JWT_SECRET;
@@ -104,6 +103,91 @@ router.post('/login', [
         else {
             return res.status(403).json({ error: "Invalid Credentials" });
         }
+
+
+    } catch (error) {
+        console.error(error);
+        return res.status(500).send("Internal Server Error");
+    }
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Route 2.5: Login/Signup using github: POST: http://localhost:8181/api/auth/github. No Login Required
+router.post('/github', async (req, res) => {
+    try {
+        const alreadyExists = await UserSchema.findOne({ email: req.body.email });
+        if (alreadyExists) {
+            // The user already exists (login)
+            let payload = {
+                user: {
+                    id: alreadyExists.id
+                }
+            }
+            const authtoken = jwt.sign(payload, JWT_SECRET);
+            return res.status(200).json({ new: false, authtoken });
+
+        }
+
+        // The user don't already exist (signup)
+        var salt = await bcrypt.genSalt(10);
+        var hash = await bcrypt.hash(uuidv4(), salt);
+        const newUser = await UserSchema.create({
+            email: req.body.email,
+            fname: 'Default',
+            lname: 'Name',
+            imageURI: 'https://ui-avatars.com/api/?name=Default+Name&background=random',
+            password: hash
+        });
+        let payload = {
+            user: {
+                id: newUser.id
+            }
+        }
+        const authtoken = jwt.sign(payload, JWT_SECRET);
+        return res.status(200).json({ new: true, authtoken });
+
+    } catch (error) {
+        console.error(error);
+        return res.status(500).send("Internal Server Error");
+    }
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Route 2.75: Update user info after github login: POST: http://localhost:8181/api/auth/github/update. Login Required
+router.post('/github/update', fetchuser, async (req, res) => {
+    try {
+        const theUser = await UserSchema.findById(req.user.id);
+        if (!theUser) {
+            return res.status(500).json({ error: "Internal server error" });
+        }
+        
+        const updated = await theUser.updateOne({ fname: req.body.fname, lname: req.body.lname, imageURI: `https://ui-avatars.com/api/?name=${req.body.fname}+${req.body.lname}&background=random` });
+        if (updated) {
+            return res.status(200).json({ success: "Successfully updated" });
+        }
+        res.status(500).json({ error: "Internal Server Error" });
 
 
     } catch (error) {

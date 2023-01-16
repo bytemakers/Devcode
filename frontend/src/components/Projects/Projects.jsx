@@ -42,6 +42,30 @@ const Projects = () => {
         setTotalItem(json.totalItems);
         setLoading(false);
     }
+    
+
+    const getAllProjectsTillNow = async () => {
+        // setLoading(true);
+        const response = await fetch(`http://localhost:8181/api/auth/getprojects/${currentPage*6}/1`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        });
+        const json = await response.json();
+
+        setProjectList(json.allProjects);
+        setFilteredProjectLists(json.allProjects);
+
+
+        // setCurrentPage(page => page+1);
+
+        // setProjectList((projects) => projects.concat(json.allProjects));
+        // setFilteredProjectLists((projects) => projects.concat(json.allProjects));
+
+        setTotalItem(json.totalItems);
+        // setLoading(false);
+    }
 
     const getMyDetails = async () => {
       const authtoken = localStorage.getItem('auth-token');
@@ -153,7 +177,8 @@ const Projects = () => {
             body: JSON.stringify({ projectId })
           });
           const json = await response.json();
-          await getProjects();
+          await getAllProjectsTillNow();
+          // await getProjects();
         }
       }
     
