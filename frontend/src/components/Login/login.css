@@ -1,0 +1,35 @@
+:root {
+    --authorizer-primary-color: #3b82f6;
+    --authorizer-primary-disabled-color: #60a5fa;
+    --authorizer-gray-color: #d1d5db;
+    --authorizer-white-color: black;
+    --authorizer-danger-color: #dc2626;
+    --authorizer-success-color: #10b981;
+    --authorizer-text-color: rgb(162, 162, 162);
+    --authorizer-fonts-font-stack: -apple-system, system-ui, sans-serif;
+    --authorizer-fonts-large-text: 18px;
+    --authorizer-fonts-medium-text: 14px;
+    --authorizer-fonts-small-text: 12px;
+    --authorizer-fonts-tiny-text: 10px;
+    --authorizer-radius-card: 5px;
+    --authorizer-radius-button: 5px;
+    --authorizer-radius-input: 5px;
+}
+
+.default_styled-button__nC8O8 {
+    border: none !important;
+    color: white;
+}
+
+
+.github-login-loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    background: black;
+    color: rgb(162, 162, 162);
+    padding: 13px;
+    border-radius: 5px;
+    opacity: 0.6;
+}
