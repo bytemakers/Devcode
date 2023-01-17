@@ -8,7 +8,7 @@
 
 Using v0.5.5-beta ( Latest Beta v0.5.5-beta Latest Stable v0.5.0 )
 
-**Made with ❤ By DVS Tech Labs**
+**Made with ❤ By ByteMakers**
 
 Please give this repo a ⭐ it really helps us!
 
