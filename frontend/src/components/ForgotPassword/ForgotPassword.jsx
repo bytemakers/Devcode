@@ -13,17 +13,36 @@ export default function ForgotPassword() {
 
     const [email, setEmail] = useState("");
 
+    const [isLoading, setIsLoading] = useState(false);
+
     const search = useLocation().search;
     const redirectURI = new URLSearchParams(search).get('redirect');
 
-    const forgotpassword = async(e) => {
+    const forgotpassword = async (e) => {
         e.preventDefault();
+    
+        setIsLoading(true);
+    
+        const response = await fetch('http://localhost:8181/api/auth/forgotpassword', {
+          method: 'POST',
+          headers: {
+              'Content-Type': 'application/json'
+          }, body: JSON.stringify({ email })
+        });
+        const json = await response.json();
+        if (json.success) {
+          toast.success("Link for resetting the password for your account has been sent to your registered email address!");
+        }
+        else {
+          toast.error(json.error);
+        }
+        setIsLoading(false);
+      }
 
-    }
     return (
         <>
             <Helmet>
-                <title>DevCode | Login</title>
+                <title>DevCode | Forgot Password</title>
                 <meta name="description" content="Login to your Devcode account here." />
             </Helmet>
             <section className="bg-black">
