@@ -10,7 +10,7 @@ const fetchuser = require('../middleware/fetchuser');
 const { v4: uuidv4 } = require('uuid');
 const dotenv = require('dotenv').config();
 const fpSchema = require('../models/ForgotPassword');
-
+const nodemailer = require("nodemailer");
 
 const JWT_SECRET = process.env.JWT_SECRET;
 
@@ -488,9 +488,30 @@ router.post('/forgotpassword', [
         token: authtoken
     });
 
-    //TODO: Integration with Outlook email
+    const transporter = nodemailer.createTransport({
+        service: 'hotmail',
+        auth: {
+            user: process.env.outlookEmail,
+            pass: process.env.outlookPassword
+        }
+    });
 
-    return res.status(200).json({ success: "Email sent successfully!!" });
+    const options = {
+        from: process.env.outlookEmail,
+        to: req.body.email,
+        subject: 'Reset Password for Devcode',
+        html: `You are receiving this email because you(maybe someone else) wanted to change your password.\nIf it was not you, ignore this email.If you requested to change your password, please go to the following link: <a href='http://localhost:3000/resetpassword/${req.body.email}/${authtoken}'>Click Here</a>`
+    };
+
+    transporter.sendMail(options, (err, info) => {
+        if (err) {
+            console.log(err);
+            return res.status(400).json({ error: "Internal Server Error!" });
+        }
+        console.log(info.response);
+
+        return res.status(200).json({ success: "Email sent successfully!!" });
+    })
 
 });
 
