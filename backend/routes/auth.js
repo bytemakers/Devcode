@@ -9,6 +9,8 @@ const ProjectSchema = require('../models/Project');
 const fetchuser = require('../middleware/fetchuser');
 const { v4: uuidv4 } = require('uuid');
 const dotenv = require('dotenv').config();
+const fpSchema = require('../models/ForgotPassword');
+const nodemailer = require("nodemailer");
 
 const JWT_SECRET = process.env.JWT_SECRET;
 
@@ -455,5 +457,62 @@ router.get('/getuser', fetchuser, async (req, res) => {
 });
 
 
+
+router.post('/forgotpassword', [
+    body('email', "Please Enter correct Email Address.").isEmail(),
+], async (req, res) => {
+
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+    }
+
+    const theUser = await UserSchema.findOne({ email: req.body.email });
+
+    if (!theUser) {
+        return res.status(404).json({ error: "This Email is not Registered!!" });
+    }
+
+    let payload = {
+        user: {
+            id: theUser.id
+        }
+    }
+    // If the user exists, create a new token and send the mail
+    const authtoken = jwt.sign(payload, JWT_SECRET);
+
+
+    // Pushing the token with email in the DB
+    fpSchema.create({
+        email: req.body.email,
+        token: authtoken
+    });
+
+    const transporter = nodemailer.createTransport({
+        service: 'hotmail',
+        auth: {
+            user: process.env.outlookEmail,
+            pass: process.env.outlookPassword
+        }
+    });
+
+    const options = {
+        from: process.env.outlookEmail,
+        to: req.body.email,
+        subject: 'Reset Password for Devcode',
+        html: `You are receiving this email because you(maybe someone else) wanted to change your password.\nIf it was not you, ignore this email.If you requested to change your password, please go to the following link: <a href='http://localhost:3000/resetpassword/${req.body.email}/${authtoken}'>Click Here</a>`
+    };
+
+    transporter.sendMail(options, (err, info) => {
+        if (err) {
+            console.log(err);
+            return res.status(400).json({ error: "Internal Server Error!" });
+        }
+        console.log(info.response);
+
+        return res.status(200).json({ success: "Email sent successfully!!" });
+    })
+
+});
 
 module.exports = router;

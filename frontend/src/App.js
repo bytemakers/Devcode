@@ -16,6 +16,7 @@ import {
 } from '@authorizerdev/authorizer-react'
 import GitHubLogin from './utils/GitHubLogin';
 import NewUser from './components/NewUser/NewUser';
+import ForgotPassword from './components/ForgotPassword/ForgotPassword';
 
 
 function App() {
@@ -32,6 +33,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/forgotpassword" element={<ForgotPassword />} />
           <Route path="/register" element={<Register />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/projects" element={<Projects />} />
