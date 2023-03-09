@@ -28,6 +28,7 @@ const NewProj = () => {
   const [repoLink, setRepoLink] = useState(redirectURI?`https://github.com/${redirectURI}`:'');
   const [level, setLevel] = useState(1);
   const [image, setImage] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
 
@@ -36,7 +37,6 @@ const NewProj = () => {
       navigate('/login');
     }
   }, []);
-
 
   const notIsCorrectURL = async () => {
     // Creating an instance of URL interface
@@ -131,6 +131,7 @@ const NewProj = () => {
       toast.error("Please enter a correct GitHub url");
     }
     else {
+      setLoading(true);
       const authtoken = localStorage.getItem('auth-token');
       const response = await fetch('http://localhost:8181/api/auth/uploadproject', {
         method: 'POST',
@@ -160,8 +161,8 @@ const NewProj = () => {
         setImage(null);
 
         toast.success('Success! Your project has been submitted successfully');
-
         setTimeout(() => {
+          setLoading(false);
           navigate('/projects')
         }, 1500);
       }
@@ -302,7 +303,18 @@ const NewProj = () => {
 
 
                   {/* <button type='submit' className='flex w-[100%] justify-center items-center p-2 rounded-full '>Submit</button> */}
-                  <button type="submit" className="text-white z-40 bg-gradient-to-br rounded-xl from-purple-600 to-blue-500 hover:bg-gradient-to-bl font-medium rounded-r-lg text-sm px-7 py-[14px] text-center">Add New Project</button>
+                  {loading ? 
+                   <div className="loader">
+                   <div className="loader-bar" style={{transform: 'scale(0.5)'}}></div>
+                   <div className="loader-bar" style={{transform: 'scale(0.8)'}}></div>
+                   <div className="loader-bar" style={{transform: 'scale(1.2)'}}></div>
+                   <div className="loader-bar" style={{transform: 'scale(1.5)'}}></div>
+                   <div className="loader-bar" style={{transform: 'scale(1.8)'}}></div>
+                 </div>
+                  :<button type="submit" className="text-white z-40 bg-gradient-to-br rounded-xl from-purple-600 to-blue-500 hover:bg-gradient-to-bl font-medium rounded-r-lg text-sm px-7 py-[14px] text-center">Add New Project</button>
+                }
+                {/* <button type='submit' disabled = {loading} className='flex w-[100%] justify-center items-center p-2 rounded-full bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl font-medium rounded-r-lg text-sm px-7 py-[14px] text-center'>Loading...</button> :
+                  */}
                 </form>
               </div>
             </div>

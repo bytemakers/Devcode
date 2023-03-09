@@ -8,3 +8,40 @@
     cursor: pointer;
     margin-right: 15px;
 }
+
+.loader {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+  }
+  
+  .loader-bar {
+    height: 20px;
+    width: 4px;
+    margin-right: 5px;
+    background-color: white;
+    animation: loader 1s ease-in-out infinite;
+  }
+  
+  @keyframes loader {
+    0% {
+      transform: scale(0.5);
+    }
+    20% {
+      transform: scale(0.8);
+    }
+    40% {
+      transform: scale(1.2);
+    }
+    60% {
+      transform: scale(1.5);
+    }
+    80% {
+      transform: scale(1.8);
+    }
+  }
+  
+  
+  
+  
