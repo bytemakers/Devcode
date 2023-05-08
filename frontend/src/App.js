@@ -8,7 +8,7 @@ import Register from './components/Register/Register';
 import NewProj from './components/NewProj/NewProj';
 import AdminDash from './components/AdminDash/AdminDash';
 import AdminLogin from './components/AdminLogin/AdminLogin';
-import { useEffect } from 'react';
+import { useEffect,useState } from 'react';
 import {
   AuthorizerProvider,
   Authorizer,
@@ -17,14 +17,44 @@ import {
 import GitHubLogin from './utils/GitHubLogin';
 import NewUser from './components/NewUser/NewUser';
 import ForgotPassword from './components/ForgotPassword/ForgotPassword';
+import Loader from './components/Loader/Loader';
 
 
 function App() {
   useEffect(() => {
     document.body.style.backgroundColor = "black";
+
+    const timer = setTimeout(() => {
+      setVisible(false);
+    }, 2000);
+
+    return () => {
+      clearTimeout(timer);
+    };
   }, []);
+
+  const [visible, setVisible] = useState(true);
+  useEffect(() => {
+    const handleReload = () => {
+      setVisible(true);
+    };
+
+    window.addEventListener('beforeunload', handleReload);
+
+    return () => {
+      window.removeEventListener('beforeunload', handleReload);
+    };
+  }, []);
+
   return (
-    <BrowserRouter>
+    
+  <>
+   {visible && (
+  
+      <div>
+       <Loader/>
+</div>)}
+       <BrowserRouter>
       <AuthorizerProvider config={{
         authorizerURL: 'https://authorizer-production-cd0f.up.railway.app',
         redirectURL: window.location.origin,
@@ -45,6 +75,23 @@ function App() {
         </Routes>
       </AuthorizerProvider>
     </BrowserRouter>
+  
+
+
+
+
+
+
+
+
+   
+   
+  
+  
+  
+  
+  
+  </>
   );
 }
 
