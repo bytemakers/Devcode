@@ -1,13 +1,19 @@
-import React from 'react';
-import './loader.css';
-
+import React from 'react'
+import "./Loader.css"
 const Loader = () => {
   return (
-    <div class="flex justify-center items-center my-40">
-        <div class="spinner-border animate-spin inline-block w-8 h-8 border-4 rounded-full" role="status">
-            <span class="visually-hidden">Loading...</span>
-        </div>
-    </div>
+    <div id="container">
+    <div class="divider" aria-hidden="true"></div>
+    <p class="loading-text" aria-label="Loading">
+      <span className="letter" aria-hidden="true">L</span>
+      <span className="letter" aria-hidden="true">o</span>
+      <span className="letter" aria-hidden="true">a</span>
+      <span className="letter" aria-hidden="true">d</span>
+      <span className="letter" aria-hidden="true">i</span>
+      <span className="letter" aria-hidden="true">n</span>
+      <span className="letter" aria-hidden="true">g</span>
+    </p>
+  </div>
   )
 }
 
