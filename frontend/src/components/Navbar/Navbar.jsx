@@ -16,7 +16,7 @@ const Navbar = (props) => {
 
     const getUser = async () => {
       const authtoken = localStorage.getItem('auth-token');
-      const response = await fetch('http://localhost:8181/api/auth/getuser',{
+      const response = await fetch('http://localhost:8181/api/auth/getuser' ,{
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
