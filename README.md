@@ -1,18 +1,16 @@
+# ⚠️⚠️ THIS REPOSITORY IS NO LONGER MAINTAINED AND NOW IS A PUBLIC ARCHIVE. ⚠️⚠️
+
 # DEVCODE
 
 ## Grow, Share And Connect With Developers
 
 ![logo](images/devcode.png)
 
-### Visit : <a href="https://devcode.stonecss.com">devcode.stonecss.com</a>
-
 Using v0.5.5-beta ( Latest Beta v0.5.5-beta Latest Stable v0.5.0 )
 
 **Made with ❤ By ByteMakers**
 
 Please give this repo a ⭐ it really helps us!
-
-Our System Statuspage is Available At <a href="https://dvstechlabs.statuspage.io" target="_blank">dvstechlabs.statuspage.io</a>
 
 ![Border](images/border.png)
 
@@ -90,15 +88,6 @@ To deploy this project navigate to the frontend folder and run
 ```
 
 Navigate to `http://localhost:3000/`
-
-
-## Stargazers
-
-![Border](images/border.png)
-
-Our awesome stargazers! Thank you for your support!
-
-[![Stargazers repo roster for @dvstechlabs/Devcode](https://reporoster.com/stars/dvstechlabs/Devcode)](https://github.com/dvstechlabs/Devcode/stargazers)
 
 ## Feedback
 
